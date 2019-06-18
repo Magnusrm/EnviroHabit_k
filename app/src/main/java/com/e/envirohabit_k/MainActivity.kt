@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val id = it.itemId
 
             if (id == R.id.ny_miljohandling_item) {
-                Toast.makeText(this, "NyMiljoHandling", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ny MiljøHandling", Toast.LENGTH_SHORT).show()
             }
             else if (id == R.id.kontooversikt_item) {
                 Toast.makeText(this, "Kontooversikt", Toast.LENGTH_SHORT).show()
