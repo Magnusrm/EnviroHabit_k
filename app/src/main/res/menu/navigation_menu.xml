@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/ny_miljohandling_item"
+            android:title="Ny miljøhandling"
+            android:icon="@drawable/ic_add_circle_black_24dp"
+    >
+
+    </item>
+    <item
+            android:id="@+id/kontooversikt_item"
+            android:title="Kontooversikt"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+    >
+
+    </item>
+    <item
+            android:id="@+id/statistikk_item"
+            android:title="Statistikk"
+            android:icon="@drawable/ic_show_chart_black_24dp"
+    >
+
+    </item>
+    <item
+            android:id="@+id/instillinger_item"
+            android:title="Instillinger"
+            android:icon="@drawable/ic_settings_black_24dp"
+    >
+
+    </item>
+</menu>
