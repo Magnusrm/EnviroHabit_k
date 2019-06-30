@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "449767376306-jp318kqn22n5jcsfge9vge9lga26lmri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.e.envirohabit_k",
+            "certificate_hash": "f689cf00c76924b1a641a812b62e122a6f721bf6"
+          }
+        },
+        {
           "client_id": "449767376306-otfq3kkks6j55rqdu2jvtdb8kjn9v2bm.apps.googleusercontent.com",
           "client_type": 3
         }
