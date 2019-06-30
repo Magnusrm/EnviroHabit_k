@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         val emailText = input_email.text.toString()
         var passordText = input_password.text.toString()
 
-        if (!emailText.isEmpty() && !passordText.isEmpty()) {
+        if (!(emailText.isEmpty() && passordText.isEmpty())) {
 
             FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(emailText,passordText)

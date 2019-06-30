@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
             else if (id == R.id.kontooversikt_item) {
                 Toast.makeText(this, "Kontooversikt", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AccountInfoActivity::class.java))
             }
             else if (id == R.id.statistikk_item) {
                 Toast.makeText(this, "Statistikk", Toast.LENGTH_SHORT).show()
