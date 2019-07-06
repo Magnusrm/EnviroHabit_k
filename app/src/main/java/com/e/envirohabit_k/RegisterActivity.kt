@@ -1,5 +1,6 @@
 package com.e.envirohabit_k
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -50,7 +51,8 @@ class RegisterActivity : AppCompatActivity() {
                     .set(user)
                     .addOnSuccessListener {
                         Log.d("Main", "userdata saved successfully")
-
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
                     }
                     .addOnFailureListener {
                         Log.d("Main", "failed to save userdata")

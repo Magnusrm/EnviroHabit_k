@@ -9,7 +9,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_account_info.*
 
-
 class AccountInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,12 +28,13 @@ class AccountInfoActivity : AppCompatActivity() {
 
         db.collection("users").document(auth.currentUser?.uid.toString())
             .get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d("Main", "DocumentSnapshot data: ${document.data}")
-                    val user = document.toObject(User::class.java)
-                    emailText.text = user?.email
-                    usernameText.text = user?.username
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot != null) {
+                    Log.d("Main", "DocumentSnapshot data: ${documentSnapshot.data}")
+                    val email = documentSnapshot.getString("email")
+                    val username = documentSnapshot.getString("username")
+                    emailText.text = email
+                    usernameText.text = username
                 } else {
                     Log.d("Main", "No such document")
                 }
@@ -44,4 +44,3 @@ class AccountInfoActivity : AppCompatActivity() {
             }
     }
 }
-
