@@ -5,50 +5,46 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
+    private lateinit var database : DatabaseReference
+    private lateinit var firebaseAuth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val db = FirebaseFirestore.getInstance()
-        val settings = FirebaseFirestoreSettings.Builder()
-            .setPersistenceEnabled(true)
-            .build()
-        db.firestoreSettings = settings
+
+        database = FirebaseDatabase.getInstance().reference
+
         register_button.setOnClickListener {
-            registerUser(db)
+            registerUser(database)
         }
     }
 
-    private fun registerUser(db : FirebaseFirestore) {
+    private fun registerUser(db : DatabaseReference) {
         val email = email_input.text.toString()
         val password = password_input.text.toString()
-        val authInstance = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
 
 
-        authInstance.createUserWithEmailAndPassword(email, password)
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
 
                 Log.d("Main", "successfully created user with uid: $email")
-                val uid = authInstance.currentUser?.uid.toString()
+                val uid = firebaseAuth.currentUser?.uid.toString()
 
-                val user = hashMapOf(
-                    "uid" to uid,
-                    "email" to email,
-                    "username" to username_input.text.toString(),
-                    "points" to 0
-                )
+                val user = User(username_input.text.toString(), email, 0)
 
-                db.collection("users").document(uid)
-                    .set(user)
+                database.child("users").child(uid).setValue(user)
                     .addOnSuccessListener {
                         Log.d("Main", "userdata saved successfully")
                         val intent = Intent(this, MainActivity::class.java)
@@ -57,15 +53,9 @@ class RegisterActivity : AppCompatActivity() {
                     .addOnFailureListener {
                         Log.d("Main", "failed to save userdata")
                     }
-
-
             }
             .addOnFailureListener {
                 Log.d("Main", it.message.toString())
             }
-
-
-
     }
-
 }
