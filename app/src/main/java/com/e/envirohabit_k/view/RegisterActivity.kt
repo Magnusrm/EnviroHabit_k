@@ -6,32 +6,37 @@ import android.os.Bundle
 import android.util.Log
 import com.e.envirohabit_k.R
 import com.e.envirohabit_k.model.User
+import com.e.envirohabit_k.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var database : DatabaseReference
+    private lateinit var db : FirebaseFirestore
     private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var userModel : UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+
+        db = FirebaseFirestore.getInstance()
+
         register_button.setOnClickListener {
-            registerUser(database)
+            registerUser()
         }
     }
 
-    private fun registerUser(db : DatabaseReference) {
+    private fun registerUser() {
         val email = email_input.text.toString()
         val password = password_input.text.toString()
         firebaseAuth = FirebaseAuth.getInstance()
 
 
+        userModel = UserModel()
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
@@ -41,16 +46,8 @@ class RegisterActivity : AppCompatActivity() {
                 val uid = firebaseAuth.currentUser?.uid.toString()
 
                 val user = User(username_input.text.toString(), email, 0)
-
-                db.child("users").child(uid).setValue(user)
-                    .addOnSuccessListener {
-                        Log.d("Main", "userdata saved successfully")
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                    .addOnFailureListener {
-                        Log.d("Main", "failed to save userdata")
-                    }
+                userModel.addUserData(user, uid)
+                startActivity(Intent(this, MainActivity::class.java))
             }
             .addOnFailureListener {
                 Log.d("Main", it.message.toString())

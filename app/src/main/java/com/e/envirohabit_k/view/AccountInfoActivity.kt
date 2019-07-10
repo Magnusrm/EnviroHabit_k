@@ -22,8 +22,6 @@ class AccountInfoActivity : AppCompatActivity() {
         editButton.setOnClickListener {
             startActivity(Intent(this, EditInfoActivity::class.java))
         }
-        val auth = FirebaseAuth.getInstance()
-        val db = FirebaseFirestore.getInstance()
 
         userModel = UserModel()
 
