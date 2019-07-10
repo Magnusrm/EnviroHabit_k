@@ -1,17 +1,20 @@
-package com.e.envirohabit_k
+package com.e.envirohabit_k.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.Toast
+import com.e.envirohabit_k.R
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var db : FirebaseFirestore
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,9 +30,6 @@ class LoginActivity : AppCompatActivity() {
         registerButton.setOnClickListener(View.OnClickListener {
             regIntent()
         })
-
-
-
     }
 
     private fun login() {

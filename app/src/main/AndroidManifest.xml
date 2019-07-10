@@ -3,7 +3,6 @@
           package="com.e.envirohabit_k">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher_foreground"
@@ -11,14 +10,14 @@
             android:roundIcon="@drawable/ic_launcher_foreground"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".EditInfoActivity">
+        <activity android:name=".view.EditInfoActivity">
         </activity>
-        <activity android:name=".AccountInfoActivity">
+        <activity android:name=".view.AccountInfoActivity">
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".view.RegisterActivity">
         </activity>
         <activity
-                android:name=".LoginActivity"
+                android:name=".view.LoginActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,12 +26,13 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".SettingsActivity"
-                android:label="Innstillinger"
+                android:name=".view.SettingsActivity"
+                android:label="@string/title_activity_settings">
                 android:parentActivityName=".MainActivity">
+
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name=".view.MainActivity"
                 android:label="Forside">
         </activity>
     </application>

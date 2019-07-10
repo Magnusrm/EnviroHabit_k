@@ -1,8 +1,9 @@
-package com.e.envirohabit_k
+package com.e.envirohabit_k.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import com.e.envirohabit_k.R
 
 class SettingsActivity : AppCompatActivity() {
 
