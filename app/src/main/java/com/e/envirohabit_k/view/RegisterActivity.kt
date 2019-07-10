@@ -9,7 +9,6 @@ import com.e.envirohabit_k.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -21,9 +20,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-
-        database = FirebaseDatabase.getInstance().reference
 
         register_button.setOnClickListener {
             registerUser(database)
@@ -46,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 val user = User(username_input.text.toString(), email, 0)
 
-                database.child("users").child(uid).setValue(user)
+                db.child("users").child(uid).setValue(user)
                     .addOnSuccessListener {
                         Log.d("Main", "userdata saved successfully")
                         val intent = Intent(this, MainActivity::class.java)

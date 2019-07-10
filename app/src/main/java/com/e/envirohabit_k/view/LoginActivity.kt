@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.e.envirohabit_k.R
+import com.e.envirohabit_k.controller.MyPreference
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -43,10 +44,10 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this, OnCompleteListener {task ->
                     if (task.isSuccessful) {
                         val intent = Intent(this, MainActivity::class.java)
+
                         startActivity(intent)
                     } else {
                         Log.d("LoginActivity", task.exception.toString())
-
                     }
                 })
         }
