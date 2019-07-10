@@ -27,14 +27,14 @@
         </activity>
         <activity
                 android:name=".view.SettingsActivity"
-                android:label="@string/title_activity_settings">
-                android:parentActivityName=".MainActivity">
+                android:label="@string/title_activity_settings"
+                android:parentActivityName=".view.MainActivity"/>
 
-        </activity>
+
         <activity
                 android:name=".view.MainActivity"
-                android:label="Forside">
-        </activity>
+                android:label="Forside"/>
+
     </application>
 
 </manifest>
