@@ -24,36 +24,12 @@ class AccountInfoActivity : AppCompatActivity() {
         }
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
-/*
-        val settings = FirebaseFirestoreSettings.Builder()
-            .setPersistenceEnabled(true)
-            .build()
-        db.firestoreSettings = settings
-        */
 
         userModel = UserModel()
 
-        val user = userModel.getUserData(auth.currentUser?.uid.toString())
-        Log.d("AccountInfo", user.toString())
-        emailText.text = user.email
-        usernameText.text = user.username
-
-        /*db.collection("users").document(auth.currentUser?.uid.toString())
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot != null) {
-                    Log.d("Main", "DocumentSnapshot data: ${documentSnapshot.data}")
-                    val email = documentSnapshot.getString("email")
-                    val username = documentSnapshot.getString("username")
-                    emailText.text = email
-                    usernameText.text = username
-                } else {
-                    Log.d("Main", "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("Main", "get failed with ", exception)
-            }
-            */
+        userModel.getUserData() {
+            emailText.text = it.email
+            usernameText.text = it.username
+        }
     }
 }
