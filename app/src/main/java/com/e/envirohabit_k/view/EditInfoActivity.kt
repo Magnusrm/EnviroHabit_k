@@ -1,7 +1,8 @@
-package com.e.envirohabit_k
+package com.e.envirohabit_k.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.e.envirohabit_k.R
 
 class EditInfoActivity : AppCompatActivity() {
 

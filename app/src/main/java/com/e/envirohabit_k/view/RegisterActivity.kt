@@ -1,9 +1,11 @@
-package com.e.envirohabit_k
+package com.e.envirohabit_k.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.e.envirohabit_k.R
+import com.e.envirohabit_k.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
