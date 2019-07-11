@@ -16,11 +16,11 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var dl : DrawerLayout
-    lateinit var abdt : ActionBarDrawerToggle
+    private lateinit var dl : DrawerLayout
+    private lateinit var abdt : ActionBarDrawerToggle
     //lateinit var points : TextView
-    lateinit var welcomeMessage : TextView
-    lateinit var userModel : UserModel
+    private lateinit var welcomeMessage : TextView
+    private lateinit var userModel : UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

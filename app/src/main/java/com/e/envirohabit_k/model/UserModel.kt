@@ -63,4 +63,23 @@ class UserModel{
                     }
 
     }
+
+    fun updateUserData(user : User) {
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
+        db.firestoreSettings = settings
+
+        db.collection("users").document(auth.currentUser?.uid.toString())
+            .update("email", user.email,
+                "username", user.username)
+            .addOnSuccessListener {
+                Log.d("/UserModel", "userdata updated successfully")
+            }
+            .addOnFailureListener {
+                Log.d("/UserModel", "failed to update userdata")
+            }
+    }
 }
