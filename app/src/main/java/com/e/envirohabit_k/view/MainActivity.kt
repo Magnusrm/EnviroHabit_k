@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         //points = findViewById(R.id.points_view)
         userModel = UserModel()
         userModel.getUserData {
-            welcomeMessage.text = "Velkommen tilbake, ${it.username.toString()}"
+            welcomeMessage.text = "Velkommen tilbake, ${it.username}"
 
         }
 
@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val nav_view = findViewById<NavigationView>(R.id.nav_view)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
 
-        nav_view.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
             val id = it.itemId
 
             if (id == R.id.ny_miljohandling_item) {
