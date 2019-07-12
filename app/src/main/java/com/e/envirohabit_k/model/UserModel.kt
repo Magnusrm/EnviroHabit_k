@@ -72,6 +72,8 @@ class UserModel{
             .build()
         db.firestoreSettings = settings
 
+        auth.currentUser?.updateEmail(user.email)
+
         db.collection("users").document(auth.currentUser?.uid.toString())
             .update("email", user.email,
                 "username", user.username)
@@ -82,4 +84,5 @@ class UserModel{
                 Log.d("/UserModel", "failed to update userdata")
             }
     }
+
 }

@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         userModel = UserModel()
         userModel.getUserData {
             welcomeMessage.text = "Velkommen tilbake, ${it.username}"
-
         }
 
         dl = findViewById(R.id.dl)
@@ -45,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         val navView = findViewById<NavigationView>(R.id.nav_view)
 
         navView.setNavigationItemSelectedListener {
+
+            when(it.itemId) {
+                R.id.ny_miljohandling_item -> (Toast.makeText(this, "Ny MiljøHandling", Toast.LENGTH_SHORT).show())
+                R.id.kontooversikt_item -> (startActivity(Intent(this, AccountInfoActivity::class.java)))
+                R.id.statistikk_item -> (Toast.makeText(this, "Statistikk", Toast.LENGTH_SHORT).show())
+                R.id.instillinger_item -> (startActivity(Intent(this, SettingsActivity::class.java)))
+                else -> (Toast.makeText(this, "Menyvalg har ingen destinasjon", Toast.LENGTH_SHORT).show())
+            }
+            /*
             val id = it.itemId
 
             if (id == R.id.ny_miljohandling_item) {
@@ -61,17 +69,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Instillinger", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-
+            */
             true
         }
-
-
-
-
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
     }
-
-
 }
