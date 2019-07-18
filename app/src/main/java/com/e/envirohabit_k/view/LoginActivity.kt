@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun regIntent() {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
