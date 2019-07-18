@@ -1,7 +1,7 @@
 package com.e.envirohabit_k.model
 
-import android.content.Intent
 import android.util.Log
+import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import com.e.envirohabit_k.view.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -63,4 +63,26 @@ class UserModel{
                     }
 
     }
+
+    fun updateUserData(user : User) {
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
+        db.firestoreSettings = settings
+
+        auth.currentUser?.updateEmail(user.email)
+
+        db.collection("users").document(auth.currentUser?.uid.toString())
+            .update("email", user.email,
+                "username", user.username)
+            .addOnSuccessListener {
+                Log.d("/UserModel", "userdata updated successfully")
+            }
+            .addOnFailureListener {
+                Log.d("/UserModel", "failed to update userdata")
+            }
+    }
+
 }

@@ -16,11 +16,11 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var dl : DrawerLayout
-    lateinit var abdt : ActionBarDrawerToggle
+    private lateinit var dl : DrawerLayout
+    private lateinit var abdt : ActionBarDrawerToggle
     //lateinit var points : TextView
-    lateinit var welcomeMessage : TextView
-    lateinit var userModel : UserModel
+    private lateinit var welcomeMessage : TextView
+    private lateinit var userModel : UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,7 @@ class MainActivity : AppCompatActivity() {
         //points = findViewById(R.id.points_view)
         userModel = UserModel()
         userModel.getUserData {
-            welcomeMessage.text = "Velkommen tilbake, ${it.username.toString()}"
-
+            welcomeMessage.text = "Velkommen tilbake, ${it.username}"
         }
 
         dl = findViewById(R.id.dl)
@@ -42,9 +41,18 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val nav_view = findViewById<NavigationView>(R.id.nav_view)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
 
-        nav_view.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
+
+            when(it.itemId) {
+                R.id.ny_miljohandling_item -> (Toast.makeText(this, "Ny MiljøHandling", Toast.LENGTH_SHORT).show())
+                R.id.kontooversikt_item -> (startActivity(Intent(this, AccountInfoActivity::class.java)))
+                R.id.statistikk_item -> (Toast.makeText(this, "Statistikk", Toast.LENGTH_SHORT).show())
+                R.id.instillinger_item -> (startActivity(Intent(this, SettingsActivity::class.java)))
+                else -> (Toast.makeText(this, "Menyvalg har ingen destinasjon", Toast.LENGTH_SHORT).show())
+            }
+            /*
             val id = it.itemId
 
             if (id == R.id.ny_miljohandling_item) {
@@ -61,17 +69,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Instillinger", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-
+            */
             true
         }
-
-
-
-
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
     }
-
-
 }
