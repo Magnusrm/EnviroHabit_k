@@ -36,13 +36,13 @@ class AccountInfoActivity : AppCompatActivity() {
 
         userModel = UserModel()
 
-        userModel.getUserData() {
+        userModel.getUserData {
             email = it.email
             emailText.text = email
             usernameText.text = it.username
         }
 
-        toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
+        toggleButton.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
                 val param = changePWView.layoutParams as ConstraintLayout.LayoutParams
@@ -75,9 +75,6 @@ class AccountInfoActivity : AppCompatActivity() {
                         }
                 }
                 }
-
-
-
     }
 
     fun View.hideKeyboard() {
