@@ -32,7 +32,7 @@ class AccountInfoActivity : AppCompatActivity() {
             startActivity(Intent(this, EditInfoActivity::class.java))
         }
 
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         userModel = UserModel()
 
@@ -83,5 +83,10 @@ class AccountInfoActivity : AppCompatActivity() {
     fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }
