@@ -64,10 +64,11 @@ class MainActivity : AppCompatActivity() {
         history_button.setOnClickListener {
             isChecked = !isChecked
             if(isChecked) {
-                onStartAnimation()
+                //onStartAnimation()
+                history_card.animate().translationY(-1100f)
                 history_button.animate().rotation(history_button.rotation-180).start()
             } else {
-
+                /*
                 val valueAnimator = ValueAnimator.ofFloat(0f)
 
                 valueAnimator.addUpdateListener {
@@ -80,7 +81,10 @@ class MainActivity : AppCompatActivity() {
                 valueAnimator.interpolator = LinearInterpolator()
                 valueAnimator.duration = 200
                 valueAnimator.start()
+                */
                 history_button.animate().rotation(history_button.rotation-180).start()
+
+                history_card.animate().translationY(0f)
             }
         }
 
