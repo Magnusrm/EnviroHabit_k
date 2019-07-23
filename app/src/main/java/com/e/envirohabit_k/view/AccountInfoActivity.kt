@@ -24,7 +24,6 @@ class AccountInfoActivity : AppCompatActivity() {
 
     private lateinit var userModel: UserModel
     private lateinit var email : String
-    private lateinit var animator : ValueAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,6 @@ class AccountInfoActivity : AppCompatActivity() {
         editButton.setOnClickListener {
             startActivity(Intent(this, EditInfoActivity::class.java))
         }
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         userModel = UserModel()
@@ -98,12 +96,9 @@ class AccountInfoActivity : AppCompatActivity() {
         val valueAnimator = ValueAnimator.ofFloat(0f, -1100f)
 
         valueAnimator.addUpdateListener {
-            // 3
             val value = it.animatedValue as Float
-            // 4
             changePWView.translationY = value
         }
-
         valueAnimator.interpolator = LinearInterpolator()
         valueAnimator.duration = 100
         valueAnimator.start()

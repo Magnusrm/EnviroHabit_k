@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.e.envirohabit_k.R
 import com.e.envirohabit_k.model.UserModel
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +32,18 @@ class MainActivity : AppCompatActivity() {
         userModel = UserModel()
         userModel.getUserData {
             welcomeMessage.text = "Velkommen tilbake, ${it.username}"
+        }
+        newActionButton.setOnClickListener {
+            newActionCard.animate().translationY(-1530f)
+        }
+        closeNewActionButton.setOnClickListener {
+            newActionCard.animate().translationY(0f)
+        }
+        myHabitsButton.setOnClickListener {
+            myHabitsCard.animate().translationY(-1530f)
+        }
+        closeMyHabitsButton.setOnClickListener {
+            myHabitsCard.animate().translationY(0f)
         }
 
         dl = findViewById(R.id.dl)
