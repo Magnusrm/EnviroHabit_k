@@ -52,24 +52,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.instillinger_item -> (startActivity(Intent(this, SettingsActivity::class.java)))
                 else -> (Toast.makeText(this, "Menyvalg har ingen destinasjon", Toast.LENGTH_SHORT).show())
             }
-            /*
-            val id = it.itemId
-
-            if (id == R.id.ny_miljohandling_item) {
-                Toast.makeText(this, "Ny MiljøHandling", Toast.LENGTH_SHORT).show()
-            }
-            else if (id == R.id.kontooversikt_item) {
-                Toast.makeText(this, "Kontooversikt", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, AccountInfoActivity::class.java))
-            }
-            else if (id == R.id.statistikk_item) {
-                Toast.makeText(this, "Statistikk", Toast.LENGTH_SHORT).show()
-            }
-            else if (id == R.id.instillinger_item) {
-                Toast.makeText(this, "Instillinger", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
-            */
             true
         }
     }

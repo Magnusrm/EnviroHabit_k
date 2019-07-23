@@ -1,11 +1,13 @@
 package com.e.envirohabit_k.view
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -21,8 +23,8 @@ import kotlinx.android.synthetic.main.activity_account_info.*
 class AccountInfoActivity : AppCompatActivity() {
 
     private lateinit var userModel: UserModel
-
     private lateinit var email : String
+    private lateinit var animator : ValueAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +34,33 @@ class AccountInfoActivity : AppCompatActivity() {
             startActivity(Intent(this, EditInfoActivity::class.java))
         }
 
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         userModel = UserModel()
 
-        userModel.getUserData() {
+        userModel.getUserData {
             email = it.email
             emailText.text = email
             usernameText.text = it.username
         }
 
-        toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
-
+        toggleButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                val param = changePWView.layoutParams as ConstraintLayout.LayoutParams
-                param.setMargins(4,8,4,8)
-                changePWView.layoutParams = param
+                onStartAnimation()
             } else {
-                val param = changePWView.layoutParams as ConstraintLayout.LayoutParams
-                param.setMargins(4,1500,4,-400)
-                changePWView.layoutParams = param
-            }
+                val valueAnimator = ValueAnimator.ofFloat(0f)
 
+                valueAnimator.addUpdateListener {
+                    // 3
+                    val value = it.animatedValue as Float
+                    // 4
+                    changePWView.translationY = value
+                }
+
+                valueAnimator.interpolator = LinearInterpolator()
+                valueAnimator.duration = 200
+                valueAnimator.start()
+            }
         }
 
         submitButton.setOnClickListener {
@@ -75,13 +82,30 @@ class AccountInfoActivity : AppCompatActivity() {
                         }
                 }
                 }
-
-
-
     }
 
     fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
+    fun onStartAnimation() {
+        val valueAnimator = ValueAnimator.ofFloat(0f, -1100f)
+
+        valueAnimator.addUpdateListener {
+            // 3
+            val value = it.animatedValue as Float
+            // 4
+            changePWView.translationY = value
+        }
+
+        valueAnimator.interpolator = LinearInterpolator()
+        valueAnimator.duration = 100
+        valueAnimator.start()
     }
 }
