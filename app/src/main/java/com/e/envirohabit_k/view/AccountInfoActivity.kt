@@ -44,7 +44,7 @@ class AccountInfoActivity : AppCompatActivity() {
             usernameText.text = it.username
         }
 
-        toggleButton.setOnCheckedChangeListener { _, isChecked ->
+        toggleButton.setOnCheckedChangeListener { _,isChecked ->
             if (isChecked) {
                 onStartAnimation()
             } else {
