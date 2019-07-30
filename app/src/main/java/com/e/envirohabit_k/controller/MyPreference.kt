@@ -2,6 +2,8 @@ package com.e.envirohabit_k.controller
 
 import android.content.Context
 
+// ikke brukt
+
 class MyPreference(context : Context) {
 
     val PREFERENCE_NAME = "userPreference"

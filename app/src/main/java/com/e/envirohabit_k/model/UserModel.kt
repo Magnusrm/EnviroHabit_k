@@ -42,7 +42,6 @@ class UserModel{
             }
             .addOnFailureListener { exception ->
                 Log.d("UserModel", "get failed with ", exception)
-
             }
     }
 
@@ -61,7 +60,6 @@ class UserModel{
                     .addOnFailureListener {
                         Log.d("/UserModel", "failed to save userdata")
                     }
-
     }
 
     fun updateUserData(user : User) {

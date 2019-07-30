@@ -55,7 +55,7 @@
                     android:background="#ffff"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/messageText" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/noteText" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp" app:layout_constraintVertical_bias="0.097"/>
@@ -64,7 +64,7 @@
                     android:layout_height="124dp"
                     android:inputType="textShortMessage"
                     android:ems="10"
-                    android:id="@+id/messageText"
+                    android:id="@+id/noteText"
                     android:gravity="top" android:hint="Notat (valgfritt)"
                     app:layout_constraintTop_toBottomOf="@+id/actionSelectSpinner" android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
