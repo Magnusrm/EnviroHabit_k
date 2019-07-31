@@ -24,7 +24,6 @@ class UserActionModel() {
                 actionAdded = false
                 callback(actionAdded)
             }
-        
     }
 
     fun getAllUserActions(callback: (List<UserAction>) -> Unit) {
