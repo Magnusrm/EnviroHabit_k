@@ -135,12 +135,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
