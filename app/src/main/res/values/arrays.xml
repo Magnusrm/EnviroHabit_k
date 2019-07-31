@@ -9,10 +9,17 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
     <string-array name="actions_array">
-        <item>Plukke søppel ute</item>
-        <item>action2</item>
-        <item>action3</item>
-        <item>action4</item>
+        <item name="action1">Plukke søppel ute</item>
+        <item name="action2">action2</item>
+        <item name="action3">action3</item>
+        <item name="action4">action4</item>
     </string-array>
-</resources>
+
+    <integer-array name="action_points_array">
+        <item name="action1_points">10</item>
+        <item name="action2_points">10</item>
+        <item name="action3_points">10</item>
+        <item name="action4_points">10</item>
+    </integer-array></resources>

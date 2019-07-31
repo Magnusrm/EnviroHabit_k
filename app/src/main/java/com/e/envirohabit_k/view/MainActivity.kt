@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // setting greeting message
         welcomeMessage = findViewById(R.id.welcome_message)
         //points = findViewById(R.id.points_view)
         userModel = UserModel()
@@ -42,20 +43,26 @@ class MainActivity : AppCompatActivity() {
             welcomeMessage.text = "Velkommen tilbake, ${it.username}"
         }
 
+        // setup new action view
         val actionList = resources.getStringArray(R.array.actions_array)
+        val actionPoints = resources.getIntArray(R.array.action_points_array)
         var selectedAction = ""
+        var pointReward = 0L
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, actionList)
         actionSelectSpinner.adapter = adapter
         actionSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 selectedAction = "nuthin"
+                pointReward = 0L
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedAction = actionList[position]
+                pointReward = actionPoints[position].toLong()
             }
         }
 
+        // setup onclick listeners
         newActionButton.setOnClickListener {
             newActionCard.animate().translationY(-1530f)
         }
@@ -70,21 +77,18 @@ class MainActivity : AppCompatActivity() {
             myHabitsCard.animate().translationY(0f)
         }
         addActionButton.setOnClickListener {
-            addAction(selectedAction, noteText.text.toString(), 10)
+            addAction(selectedAction, noteText.text.toString(), pointReward)
         }
 
+        // setup nav menu
         dl = findViewById(R.id.dl)
         abdt = ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close)
-
         dl.addDrawerListener(abdt)
         abdt.syncState()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val navView = findViewById<NavigationView>(R.id.nav_view)
-
         navView.setNavigationItemSelectedListener {
-
             when(it.itemId) {
                 R.id.ny_miljohandling_item -> (Toast.makeText(this, "Ny MiljøHandling", Toast.LENGTH_SHORT).show())
                 R.id.kontooversikt_item -> (startActivity(Intent(this, AccountInfoActivity::class.java)))
@@ -105,11 +109,20 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    fun addAction(action : String, note : String, points : Int) {
+    fun addAction(action : String, note : String, points : Long){
         auth = FirebaseAuth.getInstance()
         val userActionModel = UserActionModel()
         val time = Timestamp.now()
-        val userAction = UserAction(action, time, points, note, auth.currentUser?.uid.toString())
-        userActionModel.addUserAction(userAction)
+        val userAction = UserAction(action, time, note, auth.currentUser?.uid.toString())
+        userActionModel.addUserAction(userAction) {
+            if (it) {
+                userModel.addPoints(points)
+                Toast.makeText(this, "Handling registrert", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Handling kunne ikke registreres", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        noteText.setText("")
     }
 }

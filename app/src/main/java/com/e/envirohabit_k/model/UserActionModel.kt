@@ -9,16 +9,22 @@ class UserActionModel() {
     private lateinit var db : FirebaseFirestore
     private lateinit var auth : FirebaseAuth
 
-    fun addUserAction(userAction : UserAction) {
+    fun addUserAction (userAction : UserAction, callback : (Boolean) -> Unit) {
         db = FirebaseFirestore.getInstance()
+        var actionAdded : Boolean
         db.collection("userActions")
             .add(userAction)
             .addOnSuccessListener {
                 Log.d("/UserActionModel", "userAction saved successfully")
+                actionAdded = true
+                callback(actionAdded)
             }
             .addOnFailureListener {
                 Log.d("/UserActionModel", "failed to save userAction")
+                actionAdded = false
+                callback(actionAdded)
             }
+        
     }
 
     fun getAllUserActions(callback: (List<UserAction>) -> Unit) {
