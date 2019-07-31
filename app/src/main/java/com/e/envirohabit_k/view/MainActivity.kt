@@ -133,8 +133,6 @@ class MainActivity : AppCompatActivity() {
                 history_card.animate().translationY(0f)
             }
         }
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
