@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.e.envirohabit_k.view.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_account_info.*
@@ -42,7 +43,6 @@ class UserModel{
             }
             .addOnFailureListener { exception ->
                 Log.d("UserModel", "get failed with ", exception)
-
             }
     }
 
@@ -61,7 +61,6 @@ class UserModel{
                     .addOnFailureListener {
                         Log.d("/UserModel", "failed to save userdata")
                     }
-
     }
 
     fun updateUserData(user : User) {
@@ -85,4 +84,21 @@ class UserModel{
             }
     }
 
+    fun addPoints(points : Long) {
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
+        db.firestoreSettings = settings
+
+        db.collection("users").document(auth.currentUser?.uid.toString())
+            .update("points", FieldValue.increment(points))
+            .addOnSuccessListener {
+                Log.d("/UserModel", "points updated successfully")
+            }
+            .addOnFailureListener {
+                Log.d("/UserModel", "failed to update points")
+            }
+    }
 }
