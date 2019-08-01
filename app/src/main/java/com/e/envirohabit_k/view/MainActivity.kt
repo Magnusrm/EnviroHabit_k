@@ -68,50 +68,13 @@ class MainActivity : AppCompatActivity() {
                 history_card.animate().translationY(-1100f)
                 history_button.animate().rotation(history_button.rotation-180).start()
             } else {
-                /*
-                val valueAnimator = ValueAnimator.ofFloat(0f)
-
-                valueAnimator.addUpdateListener {
-                    // 3
-                    val value = it.animatedValue as Float
-                    // 4
-                    history_card.translationY = value
-                }
-
-                valueAnimator.interpolator = LinearInterpolator()
-                valueAnimator.duration = 200
-                valueAnimator.start()
-                */
                 history_button.animate().rotation(history_button.rotation-180).start()
 
                 history_card.animate().translationY(0f)
             }
         }
-
-
-
-
-
-
-
-
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
-    }
-
-    fun onStartAnimation() {
-        val valueAnimator = ValueAnimator.ofFloat(0f, -1100f)
-
-        valueAnimator.addUpdateListener {
-            // 3
-            val value = it.animatedValue as Float
-            // 4
-            history_card.translationY = value
-        }
-
-        valueAnimator.interpolator = LinearInterpolator()
-        valueAnimator.duration = 100
-        valueAnimator.start()
     }
 }
