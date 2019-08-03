@@ -72,14 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         // setup onclick listeners
         newActionButton.setOnClickListener {
-            newActionCard.animate().translationY(-510.toPx().toFloat())
+            newActionCard.animate().translationY(-800.toPx().toFloat())
         }
         closeNewActionButton.setOnClickListener {
             noteText.hideKeyboard()
             newActionCard.animate().translationY(0f)
         }
         myHabitsButton.setOnClickListener {
-            myHabitsCard.animate().translationY(-510.toPx().toFloat())
+            myHabitsCard.animate().translationY(-800.toPx().toFloat())
         }
         closeMyHabitsButton.setOnClickListener {
             myHabitsCard.animate().translationY(0f)
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             isChecked = !isChecked
             if(isChecked) {
                 //onStartAnimation()
-                history_card.animate().translationY(-465.toPx().toFloat())
+                history_card.animate().translationY(-725.toPx().toFloat())
                 history_button.animate().rotation(history_button.rotation-180).start()
             } else {
                 history_button.animate().rotation(history_button.rotation-180).start()
