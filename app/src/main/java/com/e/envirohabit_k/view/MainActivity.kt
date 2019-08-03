@@ -1,25 +1,19 @@
 package com.e.envirohabit_k.view
 
 import android.content.Context
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import android.view.animation.LinearInterpolator
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.get
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import com.e.envirohabit_k.R
 import com.e.envirohabit_k.model.UserAction
@@ -28,8 +22,7 @@ import com.e.envirohabit_k.model.UserModel
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_account_info.*
+import com.google.type.Date
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -121,8 +114,10 @@ class MainActivity : AppCompatActivity() {
         historyView = findViewById<ListView>(R.id.action_history)
 
         //get useractions
-        //setup custom listview adapter
-        historyView.adapter = MyCustomAdapter(this, R.layout.row_mainactivity)
+        userActionModel = UserActionModel()
+        userActionModel.getAllUserActions {
+            historyView.adapter = MyCustomAdapter(this, R.layout.row_action_history, it)
+        }
 
         var isChecked = false
         history_button.setOnClickListener {
@@ -166,16 +161,19 @@ class MainActivity : AppCompatActivity() {
 
     fun Int.toPx() : Int = (this * Resources.getSystem().displayMetrics.density.toInt())
 
-    private class MyCustomAdapter(context : Context, viewId : Int) : BaseAdapter() {
+
+    private class MyCustomAdapter(context : Context, viewId: Int, list : List<UserAction>) : BaseAdapter() {
         private val myContext : Context
         private val myView : Int
+        private val myList = list
         init {
             myContext = context
             myView = viewId
+
         }
 
         override fun getCount(): Int {
-            return 10
+            return myList.size
         }
 
         override fun getItem(position: Int): Any {
@@ -185,6 +183,12 @@ class MainActivity : AppCompatActivity() {
         override fun getView(position: Int, contextView: View?, viewGroup: ViewGroup?): View {
             val layoutInflater = LayoutInflater.from(myContext)
             val rowMain = layoutInflater.inflate(myView, viewGroup, false)
+            val rowTitle = rowMain.findViewById<TextView>(R.id.row_title)
+            val rowDate = rowMain.findViewById<TextView>(R.id.row_date)
+            val rowNote = rowMain.findViewById<TextView>(R.id.row_note)
+            rowTitle.text = myList.get(position).actionName
+            rowDate.text = "${myList.get(position).timeRegistered.toDate().day} ${myList.get(position).timeRegistered.toDate().month}"
+            rowNote.text = myList.get(position).note
             return rowMain
         }
 
