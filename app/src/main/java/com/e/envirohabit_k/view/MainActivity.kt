@@ -7,8 +7,10 @@ import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import android.view.animation.LinearInterpolator
@@ -38,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var welcomeMessage : TextView
     private lateinit var userModel : UserModel
     private lateinit var auth : FirebaseAuth
+    private lateinit var historyView : ListView
+    private lateinit var userActionModel: UserActionModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,10 +106,27 @@ class MainActivity : AppCompatActivity() {
                 R.id.kontooversikt_item -> (startActivity(Intent(this, AccountInfoActivity::class.java)))
                 R.id.statistikk_item -> (Toast.makeText(this, "Statistikk", Toast.LENGTH_SHORT).show())
                 R.id.instillinger_item -> (startActivity(Intent(this, SettingsActivity::class.java)))
+                R.id.logout_item ->
+                    FirebaseAuth.getInstance().signOut()
+                        .also {
+
+                            startActivity(Intent(this, LoginActivity::class.java))
+                        }
                 else -> (Toast.makeText(this, "Menyvalg har ingen destinasjon", Toast.LENGTH_SHORT).show())
             }
             true
         }
+
+        //init listview
+        historyView = findViewById<ListView>(R.id.action_history)
+
+        //get useractions
+
+
+        //setup custom listview adapter
+        historyView.adapter = MyCustomAdapter(this)
+
+
 
         var isChecked = false
         history_button.setOnClickListener {
@@ -148,6 +169,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun Int.toPx() : Int = (this * Resources.getSystem().displayMetrics.density.toInt())
+    private class MyCustomAdapter(context : Context) : BaseAdapter() {
+        private val myContext : Context
+        init {
+            myContext = context
+        }
+
+        override fun getCount(): Int {
+            return 10
+        }
+
+        override fun getItem(position: Int): Any {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getView(position: Int, contextView: View?, viewGroup: ViewGroup?): View {
+            val layoutInflater = LayoutInflater.from(myContext)
+            val rowMain = layoutInflater.inflate(R.layout.row_mainactivity, viewGroup, false)
+            return rowMain
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+    }
 
 
 }

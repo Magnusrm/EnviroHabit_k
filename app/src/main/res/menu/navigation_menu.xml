@@ -26,6 +26,12 @@
             android:title="Instillinger"
             android:icon="@drawable/ic_settings_black_24dp"
     >
-
     </item>
+    <item
+            android:id="@+id/logout_item"
+            android:title="Logg ut"
+            android:icon="@drawable/ic_logout"
+
+            ></item>
+
 </menu>
