@@ -166,4 +166,8 @@ class MainActivity : AppCompatActivity() {
         valueAnimator.duration = 100
         valueAnimator.start()
     }
+
+    fun getActionHistory() {
+
+    }
 }
