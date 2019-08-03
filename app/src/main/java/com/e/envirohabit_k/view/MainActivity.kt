@@ -121,12 +121,8 @@ class MainActivity : AppCompatActivity() {
         historyView = findViewById<ListView>(R.id.action_history)
 
         //get useractions
-
-
         //setup custom listview adapter
-        historyView.adapter = MyCustomAdapter(this)
-
-
+        historyView.adapter = MyCustomAdapter(this, R.layout.row_mainactivity)
 
         var isChecked = false
         history_button.setOnClickListener {
@@ -169,10 +165,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun Int.toPx() : Int = (this * Resources.getSystem().displayMetrics.density.toInt())
-    private class MyCustomAdapter(context : Context) : BaseAdapter() {
+
+    private class MyCustomAdapter(context : Context, viewId : Int) : BaseAdapter() {
         private val myContext : Context
+        private val myView : Int
         init {
             myContext = context
+            myView = viewId
         }
 
         override fun getCount(): Int {
@@ -185,7 +184,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun getView(position: Int, contextView: View?, viewGroup: ViewGroup?): View {
             val layoutInflater = LayoutInflater.from(myContext)
-            val rowMain = layoutInflater.inflate(R.layout.row_mainactivity, viewGroup, false)
+            val rowMain = layoutInflater.inflate(myView, viewGroup, false)
             return rowMain
         }
 
@@ -193,6 +192,4 @@ class MainActivity : AppCompatActivity() {
             return position.toLong()
         }
     }
-
-
 }
