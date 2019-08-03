@@ -1,6 +1,7 @@
 package com.e.envirohabit_k.model
 
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -30,13 +31,18 @@ class UserActionModel() {
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid.toString()
-        var userActions : List<UserAction>
+        var userActions : MutableList<UserAction>
 
         db.collection("userActions")
             .whereEqualTo("userId" ,  uid)
             .get()
             .addOnSuccessListener {
-                userActions = it.documents as List<UserAction>
+                userActions = mutableListOf<UserAction>()
+                it.documents.forEach {
+
+                    userActions.add(UserAction(it.get("actionName").toString(), it.getTimestamp("timeRegistered") as Timestamp,
+                        it.get("note").toString(), it.get("userId").toString()))
+                }
                 callback(userActions)
             }
             .addOnFailureListener {
