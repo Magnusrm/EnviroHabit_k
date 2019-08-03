@@ -3,6 +3,7 @@ package com.e.envirohabit_k.view
 import android.content.Context
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -71,14 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         // setup onclick listeners
         newActionButton.setOnClickListener {
-            newActionCard.animate().translationY(-1530f)
+            newActionCard.animate().translationY(-510.toPx().toFloat())
         }
         closeNewActionButton.setOnClickListener {
             noteText.hideKeyboard()
             newActionCard.animate().translationY(0f)
         }
         myHabitsButton.setOnClickListener {
-            myHabitsCard.animate().translationY(-1530f)
+            myHabitsCard.animate().translationY(-510.toPx().toFloat())
         }
         closeMyHabitsButton.setOnClickListener {
             myHabitsCard.animate().translationY(0f)
@@ -111,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             isChecked = !isChecked
             if(isChecked) {
                 //onStartAnimation()
-                history_card.animate().translationY(-1100f)
+                history_card.animate().translationY(-465.toPx().toFloat())
                 history_button.animate().rotation(history_button.rotation-180).start()
             } else {
                 history_button.animate().rotation(history_button.rotation-180).start()
@@ -146,18 +147,7 @@ class MainActivity : AppCompatActivity() {
         noteText.setText("")
     }
 
-    fun onStartAnimation() {
-        val valueAnimator = ValueAnimator.ofFloat(0f, -1100f)
+    fun Int.toPx() : Int = (this * Resources.getSystem().displayMetrics.density.toInt())
 
-        valueAnimator.addUpdateListener {
-            // 3
-            val value = it.animatedValue as Float
-            // 4
-            history_card.translationY = value
-        }
 
-        valueAnimator.interpolator = LinearInterpolator()
-        valueAnimator.duration = 100
-        valueAnimator.start()
-    }
 }
