@@ -20,7 +20,7 @@ class UserHabitModel() {
             }
     }
 
-    fun getAllUserActions(callback: (List<UserHabit>) -> Unit) {
+    fun getActiveUserHabits(callback: (List<UserHabit>) -> Unit) {
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid.toString()
@@ -28,6 +28,7 @@ class UserHabitModel() {
 
         db.collection("userHabits")
             .whereEqualTo("userId" ,  uid)
+            .whereEqualTo("timeEnded", null)
             .get()
             .addOnSuccessListener {
                 userHabits = it.documents as List<UserHabit>

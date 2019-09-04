@@ -16,9 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.e.envirohabit_k.R
-import com.e.envirohabit_k.model.UserAction
-import com.e.envirohabit_k.model.UserActionModel
-import com.e.envirohabit_k.model.UserModel
+import com.e.envirohabit_k.model.*
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userModel : UserModel
     private lateinit var auth : FirebaseAuth
     private lateinit var historyView : ListView
-    private lateinit var userActionModel: UserActionModel
+    private lateinit var habitListView : ListView
+    private lateinit var userActionModel : UserActionModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,14 +116,19 @@ class MainActivity : AppCompatActivity() {
         //get useractions
         userActionModel = UserActionModel()
         userActionModel.getAllUserActions {
-            historyView.adapter = MyCustomAdapter(this, R.layout.row_action_history, it)
+            historyView.adapter = ActionListAdapter(this, R.layout.row_action_history, it)
         }
+
+        habitListView = findViewById<ListView>(R.id.habitsList)
+
+        val habitsList = resources.getStringArray(R.array.habits_array).toList()
+
+        habitListView.adapter = HabitListAdapter(this, R.layout.row_habits, habitsList)
 
         var isChecked = false
         history_button.setOnClickListener {
             isChecked = !isChecked
             if(isChecked) {
-                //onStartAnimation()
                 history_card.animate().translationY(-725.toPx().toFloat())
                 history_button.animate().rotation(history_button.rotation-180).start()
             } else {
@@ -155,21 +160,72 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Handling kunne ikke registreres", Toast.LENGTH_SHORT).show()
             }
         }
-
         noteText.setText("")
     }
 
     fun Int.toPx() : Int = (this * Resources.getSystem().displayMetrics.density.toInt())
 
+    private class HabitListAdapter(context : Context, viewId: Int, habitValues : List<String>) : BaseAdapter() {
+        private val myContext : Context
+        private val myView : Int
+        private val habits = habitValues
+        private lateinit var activeHabitsList : MutableMap<String, Boolean>
+        private var userHabitModel : UserHabitModel
 
-    private class MyCustomAdapter(context : Context, viewId: Int, list : List<UserAction>) : BaseAdapter() {
+        init {
+            myContext = context
+            myView = viewId
+
+            activeHabitsList = mutableMapOf<String, Boolean>()
+            userHabitModel = UserHabitModel()
+            userHabitModel.getActiveUserHabits {userHabitList : List<UserHabit> ->
+                habits.forEach habitsList@{ habitString : String ->
+                    userHabitList.forEach userHabitList@{ userHabit : UserHabit ->
+                        if (habitString == userHabit.habitName) {
+                            activeHabitsList[habitString] = true
+                            return@userHabitList
+                        } else {
+                            activeHabitsList[habitString] = false
+                        }
+                    }
+                }
+            }
+        }
+
+        override fun getCount(): Int {
+            return habits.size
+        }
+
+        override fun getItem(position: Int): Any {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getView(position: Int, contextView: View?, viewGroup: ViewGroup?): View {
+            val layoutInflater = LayoutInflater.from(myContext)
+            val rowMain = layoutInflater.inflate(myView, viewGroup, false)
+            val habitText = rowMain.findViewById<TextView>(R.id.habitText)
+            val habitSwitch = rowMain.findViewById<Switch>(R.id.habitSwitch)
+
+            habitText.text = habits[position]
+            if (activeHabitsList[habits[position]] == true) {
+                habitSwitch.toggle()
+            }
+            return rowMain
+
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+    }
+
+    private class ActionListAdapter(context : Context, viewId: Int, list : List<UserAction>) : BaseAdapter() {
         private val myContext : Context
         private val myView : Int
         private val myList = list
         init {
             myContext = context
             myView = viewId
-
         }
 
         override fun getCount(): Int {

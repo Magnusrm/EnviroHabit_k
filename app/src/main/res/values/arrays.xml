@@ -22,4 +22,13 @@
         <item name="action2_points">10</item>
         <item name="action3_points">10</item>
         <item name="action4_points">10</item>
-    </integer-array></resources>
+    </integer-array>
+    <string-array name="habits_array">
+        <item name="habit1">Kildesortering</item>
+        <item name="habit2">Skru av lys i rom man ikke bruker</item>
+        <item name="habit3">habit3</item>
+        <item name="habit4">habit4</item>
+        <item name="habit5">habit5</item>
+        <item name="habit6">habit6</item>
+    </string-array>
+</resources>
