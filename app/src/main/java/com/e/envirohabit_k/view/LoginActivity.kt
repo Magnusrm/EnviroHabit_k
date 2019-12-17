@@ -31,6 +31,8 @@ class LoginActivity : AppCompatActivity() {
         registerButton.setOnClickListener(View.OnClickListener {
             regIntent()
         })
+
+
     }
 
     private fun login() {
